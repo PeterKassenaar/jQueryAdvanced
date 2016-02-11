@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="scripts/jquery-1.7.1.min.js"></script>
+	<script src="scripts/modernizr-latest.js"></script>
+	<!-- Referentie naar Google Maps toevoegen -->
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<style>
+
+		#status {
+			min-height:36px;
+			margin-bottom:15px;
+			padding-left:10px;
+			background-color:#669999;
+			color:#fff;
+			font-size:18px;
+		}
+		#container {
+			width:740px;
+			border: 2px solid #066;
+			margin:0 auto;
+			background-color:#fff;
+		}
+
+		#map_canvas{
+			width:100%;
+			height:500px;
+		}
+	</style>
+	<title>Geolocation 04 - Google Maps</title>
+</head>
+<body>
+	<div id="container">
+		<div id="status">Status informatie</div>
+		<input type="text" id="txtSearch" value="" /><button id="btnSearch">Zoeken</button>
+
+		<div id="map_canvas"></div>
+	</div>
+
+	<script>
+		$(document).ready(function(e) {
+			// geolocation-object opslaan in global variable
+			var geo;
+			var address;
+
+
+			// 1. Testen of geolocation beschikbaar is
+			if(!Modernizr.geolocation){
+				// 1b. Nee. Melding tonen
+				setStatus('Geolocation is in uw browser helaas niet beschikbaar');
+			}
+			else{
+				// 2. Ja. Huidige locatie ophalen
+				setStatus('Geolocation is beschikbaar');
+				geo = navigator.geolocation;
+				//geo.getCurrentPosition(showMap, handleGeoError);
+			}
+
+		});
+
+		// Dit nog verder afmaken: zoeken op basis van plaatsnaam.
+		$('#btnSearch').on('click', function () {
+
+			address  = $('#txtSearch').val(results[0].formatted_address);
+		});
+		
+		// callback-function om de map in de pagina te tonen.
+		function showMap(position){
+			// 1. coordinaten ophalen uit het position-object
+			var lat = position.coords.latitude;
+			var long = position.coords.longitude;
+
+			// 3. Google gebruikt eigen coordinaten-object.
+			var gCoords = new google.maps.LatLng(lat, long);
+
+			// 4. Options voor de kaart instellen
+			var mapOptions = {
+				// zoom-instelling, van 0-21
+				zoom: 13,
+
+				// locatie centreren
+				center: gCoords,
+
+				// Controls wel/niet toevoegen
+				mapTypeControl: true,
+
+				// Navigation control options
+				navigationControlOptions: {
+					style: google.maps.NavigationControlStyle.SMALL
+				},
+
+				// standaard kaarttype instellen.
+				// Options/mogelijkheden:
+				// -	ROADMAP
+				// -	SATELLITE
+				// - 	HYBRID
+				// - 	TERRAIN
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			// 5. Maak de map en plaats in de <div id="map_canvas">
+			var map = new google.maps.Map(
+				document.getElementById('map_canvas'),
+				mapOptions);
+
+			// 6. Plaats een speld/markering
+			var markerOptions ={
+				position: gCoords,
+				map: map,
+				title: 'U bevindt zich hier. Ongeveer'
+			};
+			var marker = new google.maps.Marker(markerOptions);
+		}
+
+		// callback function om fouten af te vangen.
+		function handleGeoError(errorCode){
+			switch(errorCode.code){
+				case errorCode.TIMEOUT:
+					setStatus('FOUT: Positie niet beschikbaar - er is een timeout opgetreden');
+					break;
+				case errorCode.POSITION_UNAVAILABLE:
+					setStatus('FOUT: Positie werd niet gevonden');
+					break;
+				case errorCode.PERMISSION_DENIED:
+					setStatus('FOUT: Geen toestemming locatie te gebruiken');
+					break;
+				default:
+					setStatus('FOUT: Onbekende fout opgetreden, met foutcode: ' + errorCode.code);
+			}
+		}
+
+		// Algemene functie om bericht in statusbalk te tonen
+		function setStatus(message){
+			$('#status'	).html(message);
+		}
+
+	</script>
+</body>
+</html>

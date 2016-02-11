@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script src="scripts/modernizr-latest.js"></script>
+    <!-- Referentie naar Bing Maps toevoegen -->
+    <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <style>
+        #status {
+            min-height: 36px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            background-color: #669999;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        #container {
+            width: 740px;
+            border: 2px solid #066;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+
+        #map_canvas {
+            height: 500px !important;
+            width: 100% !important;
+            position: relative;
+        }
+
+        #route {
+            width: 100%;
+            height: 230px;
+            overflow-y: scroll;
+        }
+    </style>
+    <title>Geolocation 06 - Bing Maps Locatie</title>
+</head>
+<body>
+    <div id="container">
+        <div id="status">Status informatie</div>
+        <div id="geoLocationInfo"></div>
+        <div id="map_canvas"></div>
+    </div>
+
+    <script>
+        $(document).ready(function (e) {
+            // geolocation-object opslaan in global variable
+            var geo;
+
+
+            // 1. Testen of geolocation beschikbaar is
+            if (!Modernizr.geolocation) {
+                // 1b. Nee. Melding tonen
+                setStatus('Geolocation is in uw browser helaas niet beschikbaar');
+            }
+            else {
+                // 2. Ja. Huidige locatie ophalen
+                setStatus('Geolocation is beschikbaar');
+                geo = navigator.geolocation;
+                geo.getCurrentPosition(showBingMap, handleGeoError);
+            }
+
+        });
+
+        // callback-function om de map in de pagina te tonen.
+        function showBingMap(position) {
+            // 0. Algemene initialisaties
+            var map = null;
+            var pinPoint = null;
+            var pinPixel = null;
+
+            // 1. coordinaten ophalen uit het position-object
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+
+            // 2. Coordinaten tonen in UI
+            $('#geoLocationInfo').append('<div>Latitude: ' + lat.toString() + '</div>');
+            $('#geoLocationInfo').append('<div>Longitude: ' + long.toString() + '</div>');
+
+            // 3. Bing Maps-locationobject maken op basis van lat/long
+            // (VE komt van 'Virtual Earth')
+            var LA = new VELatLong(lat, long);
+
+            // 4. Map-object maken
+            map = new VEMap('map_canvas');
+
+            // 5. Map laden
+            // 		Voor parameters, zie: http://msdn.microsoft.com/en-us/library/bb412551.aspx
+            // 		en http://msdn.microsoft.com/en-us/library/bb412546.aspx
+            map.LoadMap(LA, 14, VEMapStyle.Road, false, VEMapMode.Mode2D, true, 1);
+
+            // 6. PinPoint plaatsen
+            pinPoint = map.GetCenter();
+            pinPixel = map.LatLongToPixel(pinPoint);
+            map.AddPushpin(pinPoint);
+
+        }
+
+        // callback function om fouten af te vangen.
+        function handleGeoError(errorCode) {
+            switch (errorCode.code) {
+                case errorCode.TIMEOUT:
+                    setStatus('FOUT: Positie niet beschikbaar - er is een timeout opgetreden');
+                    break;
+                case errorCode.POSITION_UNAVAILABLE:
+                    setStatus('FOUT: Positie werd niet gevonden');
+                    break;
+                case errorCode.PERMISSION_DENIED:
+                    setStatus('FOUT: Geen toestemming locatie te gebruiken');
+                    break;
+                default:
+                    setStatus('FOUT: Onbekende fout opgetreden, met foutcode: ' + errorCode.code);
+            }
+        }
+
+        // Algemene functie om bericht in statusbalk te tonen
+        function setStatus(message) {
+            $('#status').html(message);
+        }
+
+    </script>
+</body>
+</html>

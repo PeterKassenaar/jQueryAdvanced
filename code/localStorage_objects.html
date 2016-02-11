@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="scripts/jquery-1.7.1.min.js"></script>
+	<script src="scripts/modernizr-latest.js"></script>
+	<style>
+		/* [styles here] */
+	</style>
+	<title>objecten in localStorage</title>
+</head>
+<body>
+	<script>
+		$(document).ready(function (e) {
+			// JavaScript/jQuery here
+			var myObject = {
+				naam: 'peter',
+				kinderen: ['javan', 'feline'],
+				hond: {
+					hond1: 'buddy',
+					hond2: 'spetter'
+				}
+			}
+			// 1. object opslaan
+			//window.localStorage.setItem('mijnObject', myObject);
+			var db = window.localStorage;
+			db.setItem('mijnObject', JSON.stringify(myObject));
+
+
+			// 2. object ophalen en tonen
+			var opgehaaldObject = window.localStorage.getItem('mijnObject');
+			var parsedObject = JSON.parse(opgehaaldObject);
+			console.log(parsedObject.kinderen[0]);
+
+			// Helper-uitbreidingen; opslaan in eigen bibliotheekje met
+			// standaardfuncties oid.
+			
+			Storage.prototype.setObject = function (key, value) {
+				this.setItem(key, JSON.stringify(value));
+			}
+
+			Storage.prototype.getObject = function (key) {
+				var value = this.getItem(key);
+				return value && JSON.parse(value);
+			}
+
+			window.localStorage.setObject('mijnObject', myObject);
+			
+			var opgehaaldObject = window.localStorage.getObject('mijnObject');
+			console.log('mijnObject : ', opgehaaldObject);
+			console.log(opgehaaldObject.hond.hond2);
+
+		});
+	</script>
+	<h2>Kijk in de Console van Web Inspector/Firebug!</h2>
+</body>
+</html>

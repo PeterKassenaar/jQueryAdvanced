@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cursus JavaScript - jQuery template </title>
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+        	// 1. Oefening: maak tabbladen van de div's. Verberg alle tabbladen, behalve de eerste.
+
+			// 2. Schrijf code om via een knop naar een ander tabblad te springen.
+   
+        });
+
+
+    </script>
+    <style>
+        #menu {
+            margin: 0;
+            padding: 0;
+        }
+
+            #menu li {
+                display: inline;
+            }
+
+                #menu li a {
+                    display: inline-block;
+                    min-width: 100px;
+                    border: 1px solid #309;
+                    padding: 10px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    margin: 0;
+                }
+        /* geselecteerde tab in het menu */
+        .selected {
+            background-color: #06F;
+            color: #fff;
+        }
+
+        /* inhoud van de tabbladen */
+        #content div {
+            width: 600px;
+            border: 1px solid #666;
+            background-color: #EEE;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <ul id="menu">
+        <li><a href="#eerste" class="selected">Eerste tab</a></li>
+        <li><a href="#second">Tweede tab</a></li>
+        <li><a href="#third">Derde tab</a></li>
+        <li><a href="#fourth">Vierde tab</a></li>
+    </ul>
+    <div id="content">
+        <div id="eerste">
+            <h1>First tab</h1>
+            <h2>Hello World, enzovoort...</h2>
+            Lorem ipsum dolor sit...
+            <button id="btnTab1">Naar tab 2</button>
+        </div>
+        <div id="second">
+            <h1>Second tab</h1>
+            Lorem ipsum dolor sit...
+        </div>
+
+        <div id="third">
+            <h1>Third tab</h1>
+            Lorem ipsum dolor sit...
+        </div>
+        <div id="fourth">
+            <h1>Fourth tab</h1>
+            Lorem ipsum dolor sit...
+        </div>
+    </div>
+    <!--<button id="nextTab">Naar volgende tab</button>-->
+</body>
+</html>

@@ -1,0 +1,52 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mijn kleine library</title>
+</head>
+
+<body>
+
+<h1 id="koptekst">Koptekst</h1>
+	<div>Div in de pagina</div>
+	<div>Div in de pagina</div>
+	<div>Div in de pagina</div>
+	<div>Nog een div</div>
+<script>
+// Mijn helper library
+var $ = (function(varA, varB){
+	// private
+	var get = function(_el){
+		return	document.querySelector(_el);
+	};
+
+	getElements = function (_els) {
+		console.log(document.querySelectorAll(_els));
+		
+	}
+	
+	var hide = function(_el){
+		document.querySelector(_el).style.display='none';
+	};
+	
+	// public
+	return{
+		get: get,
+		hide: hide,
+		getElements : getElements
+	};
+})(); // Roep jezelf aan, en plaats $ op de global scope
+
+
+var kop = $.get('#koptekst');
+console.log(kop);
+// koptekst na 2,5 seconden verbergen.
+setTimeout(function(){
+	$.hide('#koptekst');
+}, 2500);
+
+$.getElements('div');
+$.getElements('img');
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cursus JavaScript - jQuery template </title>
+    <!--
+    Eventueel: invoegen via CDN
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    -->
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            $('p:even').addClass('even');
+
+
+            $('#myTable tr:odd').addClass('odd');
+            $('#myTable tr:even').addClass('even');
+            //$('#myTable tr:first').addClass('head');
+
+            $('#myTable tr').hover(function () {
+                var self = this;
+                var self2 = $(this);
+                //self2.add
+                $(this).addClass('highlight');
+            },
+            function () {
+                $(this).removeClass('highlight');
+            });
+
+        });
+
+
+    </script>
+    <style>
+        .odd {
+            background-color: #ccc;
+        }
+
+        .even {
+            background-color: red;
+        }
+
+        .head {
+            background-color: #00f;
+        }
+
+        .highlight {
+            background-color:#00f;
+        }
+
+        tr:hover {
+            background-color: #00f;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>Tekst in de paragraaf</p>
+        <p>Tekst in de paragraaf</p>
+        <p>Tekst in de paragraaf</p>
+        <p>Tekst in de paragraaf</p>
+        <p>Tekst in de paragraaf</p>
+    </div>
+    <table border="1" id="myTable" width="100%">
+        <tr>
+            <td>Header rij</td>
+            <td>Header rij</td>
+            <td>Header rij</td>
+            <td>Header rij</td>
+        </tr>
+        <tr>
+            <td>Eerste rij</td>
+            <td>Eerste rij</td>
+            <td>Eerste rij</td>
+            <td>Eerste rij</td>
+        </tr>
+        <tr>
+            <td>Tweede rij</td>
+            <td>Tweede rij</td>
+            <td>Tweede rij</td>
+            <td>Tweede rij</td>
+        </tr>
+        <tr>
+            <td>Derde rij</td>
+            <td>Derde rij</td>
+            <td>Derde rij</td>
+            <td>Derde rij</td>
+        </tr>
+        <tr>
+            <td>Vierde rij</td>
+            <td>Vierde rij</td>
+            <td>Vierde rij</td>
+            <td>Vierde rij</td>
+        </tr>
+        <tr>
+            <td>Vijfde rij</td>
+            <td>Vijfde rij</td>
+            <td>Vijfde rij</td>
+            <td>Vijfde rij</td>
+        </tr>
+        <tr>
+            <td>Zesde rij</td>
+            <td>Zesde rij</td>
+            <td>Zesde rij</td>
+            <td>Zesde rij</td>
+        </tr>
+        <tr>
+            <td>Zevende rij</td>
+            <td>Zevende rij</td>
+            <td>Zevende rij</td>
+            <td>Zevende rij</td>
+        </tr>
+    </table>
+
+</body>
+</html>

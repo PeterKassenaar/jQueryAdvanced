@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cursus JavaScript - jQuery template </title>
+    <!--
+    Invoegen via CDN
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    -->
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script>
+
+        $(document).ready(function (e) {
+            // alle JavaScript komt hier
+
+            $(".testDiv").each(function (index, element) {
+                console.log('index: ', index, ' element: ', element);
+            });
+
+
+            $('#mijnDiv').attr('class', '');
+
+        });
+    </script>
+</head>
+<body>
+    <div class="testDiv">TestDiv</div>
+    <div class="testDiv">TestDiv</div>
+    <div class="testDiv">TestDiv</div>
+    <div class="testDiv">TestDiv</div>
+    <div class="testDiv">TestDiv</div>
+    <div class="testDiv">TestDiv</div>
+    <div class="testDiv">TestDiv</div>
+</body>
+</html>

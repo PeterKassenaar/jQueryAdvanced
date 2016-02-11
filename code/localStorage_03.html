@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="scripts/jquery-1.7.1.min.js"></script>
+<script src="scripts/modernizr-latest.js"></script>
+<title>test local storage</title>
+<style>
+body{
+	background-color:#CCC;
+	margin:0;
+	padding: 0;
+	
+}
+#container {
+	width:640px;
+	border: 2px solid #066;
+	margin:0 auto;
+	background-color:#fff;
+	padding: 0 10px;
+}
+#controls{
+	border:4px solid #C00;
+	border-radius:4px;
+	margin:10px;
+	padding: 10px;
+	float:right;
+	min-height:100px;
+	min-width:200px;
+}
+</style>
+</head>
+<body>
+<div id="container">
+<div id="controls">
+<h3>Opmaak</h3>
+<input type="radio" name="rbFont" value="Times New Roman">Times New Roman<br>
+<input type="radio" name="rbFont" value="Helvetica">Helvetica<br>
+<input type="radio" name="rbFont" value="Comic Sans MS">Comic Sans MS<br>
+<input type="radio" name="rbFont" value="Verdana">Verdana<br>
+<hr />
+<input type="radio" name="rbSize" value="10px">10px<br>
+<input type="radio" name="rbSize" value="14px">14px<br>
+<input type="radio" name="rbSize" value="18px">18px<br>
+</div>
+  <h1>Lorem ipsum dolor sit</h1>
+  <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu augue nisi, vitae sollicitudin urna. Maecenas a diam enim, a gravida erat. Pellentesque elementum lectus ac massa consequat id congue eros porta. Donec ut est lacus, eu sodales diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Nunc hendrerit, tortor ut ornare placerat, odio leo elementum dui, eu congue lacus urna vitae est. Quisque a tristique augue. Vivamus auctor mauris consequat velit vestibulum dapibus. </p>
+  <p> Curabitur neque felis, porttitor vel cursus id, porta ac metus. Maecenas ornare, lacus sed iaculis aliquam, tortor dolor tristique lectus, a vestibulum felis felis non erat. Sed lacus erat, euismod quis pharetra ac, gravida nec mauris. Donec feugiat hendrerit dui vitae rutrum. Ut quis enim id nunc dapibus posuere. Praesent fermentum nisl tristique dui convallis egestas. Morbi eros elit, lobortis nec ultricies vitae, luctus nec nulla. Nulla adipiscing cursus augue vitae iaculis. Suspendisse ligula dolor, dapibus nec congue in, fermentum sit amet tortor. Pellentesque vestibulum ultricies neque, sit amet blandit ante sagittis quis. Quisque ligula sapien, laoreet id feugiat in, rhoncus at tellus. </p>
+  <p> Quisque et arcu in est euismod vehicula. Vivamus facilisis quam nec nisi cursus at imperdiet risus fermentum. Quisque at tortor orci, a tincidunt odio. Proin et tellus urna. In tempor, augue id pulvinar vehicula, orci dui cursus dolor, id tempus nibh erat sed nisl. Curabitur adipiscing varius suscipit. Vestibulum ut magna nunc, in tempus augue. </p>
+  <p> Vivamus malesuada ultricies mauris non aliquam. Suspendisse eu lacus enim. Sed id congue velit. Vivamus in convallis quam. Aliquam vel eros nisi, at tempor sem. Suspendisse sagittis turpis non elit bibendum a mollis quam sagittis. Aenean sem massa, auctor non porta eget, pharetra et tortor. Duis quam dolor, feugiat nec ullamcorper sit amet, ullamcorper molestie diam. Nulla viverra tincidunt vehicula. Vestibulum sit amet urna ac dolor rhoncus sodales. Sed porttitor pellentesque tellus, a aliquet diam dictum pulvinar. Sed a iaculis ante. Phasellus a arcu nunc, vel mollis lacus. Etiam sagittis dui nec massa condimentum blandit.</p>
+</div>
+<script>
+$(document).ready(function(e) {	
+	// 1. Testen of localStorage beschikbaar is.
+	if(Modernizr.localstorage){
+		// 2. Ja. Click-event voor Lettertype aanhaken.
+		$('[name=rbFont]').click(function(){
+			$('#container').css('font-family', $(this).val());
+			window.localStorage.setItem('font', $(this).val());
+		});
+		
+		// 3. Click-event voor grootte aanhaken
+		$('[name=rbSize]').click(function(){
+			$('#container').css('font-size', $(this).val());
+			window.localStorage.setItem('size', $(this).val());
+		});
+		
+		// 4. Inlezen wat de huidige instellingen zijn
+		var font = window.localStorage.getItem('font');
+		var size = window.localStorage.getItem('size');
+		
+		// 4a. Is al een lettertype opgeslagen?
+		if(font){
+			$('#container').css('font-family', font); // lettertype instellen
+			$('[name=rbFont]').filter('[value="' + font +'"]').attr('checked', true);
+		}
+		// 4b. Is al een lettergrootte opgeslagen?
+		if(size){
+			$('#container').css('font-size', size);
+			$('[name=rbSize]').filter('[value="' + size +'"]').attr('checked', true);
+		}
+		
+	}else{
+		// Nee. Div met controls onzichtbaar maken
+		$('#controls').hide();
+	}
+});
+
+</script>
+</body>
+</html>

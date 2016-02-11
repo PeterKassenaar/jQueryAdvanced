@@ -1,0 +1,40 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cursus JavaScript - Basic Ajax </title>
+	<script src="scripts/jquery-1.7.1.min.js"></script>
+	<script>
+		$(document).ready(function (e) {
+			$('#btnRequest').on('click', handleClick);
+		});
+
+		// de klik op de knop omzetten in een Ajax-request
+		function handleClick(event) {
+			// 1. variabelen instellen
+			$.getJSON('books.json', 	// dit is de URL waar de call naar toe gaat
+					{ "categoryID" : 45, "name" :"Peter"},				// Het object dat wordt meegestuurd (in dit geval leeg)
+					function (gegevens) {
+						// Callback functie bij succes.
+						// Over het object loopen en tonen in de UI
+						console.log(gegevens)
+						$.each(gegevens, function(i){
+							$('#myDiv').append('<p>' + i + ': <strong>' + this.firstAuthorName + '</strong></p>');
+						})
+//						for (var i in gegevens) {
+//							$('#myDiv').append('<p>' + i + ': <strong>' + gegevens[i].title + '</strong></p>');
+//
+//							// Hier je data gaan binden aan een template
+//						}
+					});
+		}// einde function handleClick
+
+</script>
+</head>
+
+<body>
+	<button id="btnRequest">Ajax Request via jQuery</button>
+	<div id="myDiv"></div>
+</body>
+</html>
+

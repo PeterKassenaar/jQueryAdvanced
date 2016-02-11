@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery basic template</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+		<h1>Schrijf code om onderstaande elementen te selecteren. Check in de console</h1>
+		<input type="text" id="txtName" placeholder="Uw naam"/><br />
+		<input type="text" id="txtEmail" placeholder="E-mailadres" /><br />				
+		<input type="checkbox" value="" />
+
+		<hr />
+		<table border="1" class="table">
+			<tr>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+			</tr>
+			<tr>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+			</tr>
+			<tr>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+			</tr>
+			<tr>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+			</tr>
+			<tr>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+			</tr>
+			<tr>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+			</tr>
+			<tr>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+				<td>tekst in de cel</td>
+			</tr>
+		</table>
+		<hr />
+		<h2>Navigatie</h2>
+		<ul id="nav">
+			<li><a href="#">Item 1</a></li>
+			<li><a href="#"><span>Item 2</span></a></li>
+			<li>
+				Kopje submenu
+					<ul id="submenu">
+						<li><a href="#">listitem xxx</a></li>
+						<li><a href="#">listitem xxx</a></li>
+						<li><a href="#">listitem xxx</a></li>
+						<li><a href="#">listitem xxx</a></li>
+					</ul>
+				
+				
+			</li>
+			<li><a href="#">Item 4</a></li>
+			<li><a href="#">Item 5</a></li>
+		</ul>
+		<button id="btnClickMe">
+			Klik op mij
+		</button>
+	</div>
+	<!-- vendor scripts -->
+	<script src="scripts/jquery/jquery.min.js"></script>
+	<script src="scripts/bootstrap/bootstrap.min.js"></script>
+
+	<!-- custom scripts -->
+	<script>
+		var list = $('#nav > li > a');
+		var list2 = $('#nav > li').children('a');
+		//var list3 = $('#nav >  li').find('a');
+		$('#btnClickMe').on('click', function () {
+			$('#nav').append('<li>Nieuw item</li>');
+		
+		});
+		$('#nav').on('click', 'li', function (e) {
+			e.preventDefault();
+			console.log('Im clicked');
+		});
+	</script>
+</body>
+</html>

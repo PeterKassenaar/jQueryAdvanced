@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cursus JavaScript - Basic Ajax </title>
+	<!-- Let er op dat je hieronder ZELF de goede verwijzing naar jQuery invoegt -->
+	<script src="scripts/jquery-1.7.1.min.js"></script>
+	<style>
+		body {
+			font-family: Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+		}
+
+		#myDiv1, #myDiv2, #myDiv3 {
+			width: 150px;
+			height: 150px;
+			background-color: #DDDADA;
+			border: 1px solid #333;
+			float: left;
+			padding: 4px;
+			margin: 10px;
+			overflow-y:auto;
+		}
+		.result {
+			clear: both;
+			font-size: xx-large;
+			color: #D9D9D9;
+		}
+		.klaar{
+			color: #4cff00;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<h1>jQuery deffered object - 02</h1>
+		<button id="btnRequest">$.get() 3 div's</button></div>
+	<div id="myDiv1"></div>
+	<div id="myDiv2"></div>
+	<div id="myDiv3"></div>
+	<div class="result">Klaar!</div>
+	<script>
+		$(document).ready(function (e) {
+			$('#btnRequest').on('click', handleClick);
+		});
+
+		// Event handler
+		function handleClick(event) {
+			// 1. $.get() aanroepen. URL als parameter meegeven, callbackfunctie voor resultaat
+			$.get('simpleText.txt', function (result) {
+				$('#myDiv1').html(result);				
+			});
+			$.get('simpleText.txt', function (result) {
+				$('#myDiv2').html(result);				
+			})
+			$.get('simpleText.txt', function (result) {
+				$('#myDiv3').html(result);
+				$('.result').addClass('klaar'); // in UI tonen dat opdracht gereed is.
+			})
+		}
+
+	</script>
+</body>
+</html>
+

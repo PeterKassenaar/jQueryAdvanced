@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="scripts/jquery-1.7.1.min.js"></script>
+<script src="scripts/modernizr-latest.js"></script>
+<link rel="stylesheet" type="text/css" href="css/normalize.css">
+<style>
+
+#status {
+	min-height:36px;
+	margin-bottom:15px;
+	padding-left:10px;
+	background-color:#669999;
+	color:#fff;
+	font-size:18px;
+}
+#container {
+	width:740px;
+	border: 2px solid #066;
+	margin:0 auto;
+	background-color:#fff;
+}
+
+</style>
+<title>Geolocation 02</title>
+</head>
+<body>
+<div id="container">
+  <div id="status">Status informatie</div>
+  <div id="geoLocationInfo"></div>
+</div>
+
+<script>
+$(document).ready(function(e) {
+	// geolocation-object opslaan in global variabel
+	var geo;
+	
+	// 1. Testen of geolocation beschikbaar is
+	if(!Modernizr.geolocation){
+		// 1b. Nee. Melding tonen
+		setStatus('Geolocation is in uw browser helaas niet beschikbaar');
+	}
+	else{
+		// 2. Ja. Huidige locatie ophalen
+		setStatus('Geolocation is beschikbaar');
+		geo = navigator.geolocation;
+		geo.getCurrentPosition(showCoords); // Asynchroon! Na ophalen de callback-functie aanroepen.
+	}
+	
+});
+
+// callback-function om de coordinaten in de pagina te tonen.
+function showCoords(position){
+	// coordinaten ophalen uit het position-object
+	var lat = position.coords.latitude;
+	var long = position.coords.longitude;
+	$('#geoLocationInfo').append('<div>Latitude: ' + lat.toString() + '</div>');
+	$('#geoLocationInfo').append('<div>Longitude: ' + long.toString() + '</div>');
+}
+
+// Algemene functie om bericht in statusbalk te tonen
+function setStatus(message){
+	$('#status'	).html(message);
+}
+
+</script>
+</body>
+</html>

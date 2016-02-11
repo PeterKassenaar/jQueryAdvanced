@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery basic template</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+	<div class="container">
+		<h1>Optimize selectors: kijk in de broncode.</h1>
+		<div id="divResult"></div>
+	</div>
+	<!-- vendor scripts -->
+	<script src="scripts/jquery/jquery.min.js"></script>
+	<script src="scripts/bootstrap/bootstrap.min.js"></script>
+
+	<!-- custom scripts -->
+	<script>
+		// Gebruik chaining om elementen te selecteren en daarna te bewerken.
+
+		// 1. FOUT:
+		$('#divResult').css('color', 'green');
+		$('#divResult').html('hello');
+		$('#divResult').css('background-color', '#ffffff');
+
+		// 2. BETER: 
+		$('#divResult')
+			.css('color', 'green')
+			.html('Hello World')
+			.css('background-color', '#ffffff');
+
+		// 3. NOG BETER (vooral als er meer dan 1 element in de selectie zit en je er overheen loopt)
+		var item = $('#divResult');
+		item.css('color', 'green')
+			.html('Hello World')
+			.css('background-color', '#ffffff');
+
+		// 4. In lussen, dit is 'a big no-no'
+		console.time('no cache');
+		for (var i = 0; i < 100000; i++) {
+			$('#list').append(i);
+		}
+		console.timeEnd('no cache');
+
+		// 5. Een betere manier, via caching
+		console.time('cache');
+		var item = $('#list');
+		for (var i = 0; i < 100000; i++) {
+			item.append(i);
+		}
+		console.timeEnd('cache');
+	</script>
+</body>
+</html>

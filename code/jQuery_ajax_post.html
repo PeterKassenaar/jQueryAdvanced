@@ -1,0 +1,64 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cursus JavaScript -Ajax </title>
+    <!-- Let er op dat je hieronder ZELF de goede verwijzing naar jQuery invoegt -->
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            $('#btnRequest').on('click', handleClick);
+        });
+
+        // de klik op de knop omzetten in een Ajax-request
+        function handleClick(event) {
+            // 1. data-object maken van tekstveld
+            var data = {};
+            data.name = $('#txtName').val();
+            data.email = $('#txtEmail').val();
+            // 2. $.post() aanroepen en data meegeven. Op de server moet iets worden gedaan met 'data'
+			$.post('simple.html', data, function (result) {
+				$('#myDiv').html(result);
+			})
+
+            // 3. Of: POST via $.ajax();
+            $.ajax({
+                type: 'POST',
+                data: $('#form1').serialize(),
+                success : successHandler,
+                error: errorHandler,
+                url: 'response.json'
+            });
+
+            function successHandler(data){
+
+                console.log('ALLES OK! : ' + data);
+                $('#myDiv').append(data);
+            }
+
+            function errorHandler(jqXhr, textStatus, errorThrown){
+                console.log("ERROR! Helaas...: " + jqXhr.textStatus);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+<form action="" id="form1" name="form1">
+    <p>
+        Uw naam:
+        <input type="text" id="txtName" name="txtName"/>
+    </p>
+
+    <p>
+        Uw email:
+        <input type="text" id="txtEmail" name="txtEmail"/>
+    </p>
+</form>
+<button id="btnRequest">Ajax Request via $.post()</button>
+
+<div id="myDiv"></div>
+</body>
+</html>
+

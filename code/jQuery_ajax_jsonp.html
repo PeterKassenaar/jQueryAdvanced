@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cursus JavaScript - Basic Ajax </title>
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            $('#btnRequest').on('click', handleClick);
+        });
+
+        //dataType: 'jsonp',
+
+        var urlBooks = 'http://api.yindo.com/api/book/new/10/',
+                urlWeather = 'http://api.openweathermap.org/data/2.5/weather?q=amsterdam,nl&units=metric';
+
+        // de klik op de knop omzetten in een Ajax-request
+        function handleClick(event) {
+            // 1. variabelen instellen
+            $.ajax({
+                dataType   : 'jsonp',
+                contentType: 'application/json',
+                url        : urlWeather,
+                success    : handleData,	// success callbackfunctie
+                error      : handleError		// error callbackfunctie
+            });
+        }
+
+        // success callback-functie
+        function handleData(data) {
+            console.log(data);
+            // Het weer in Amsterdam in de pagina tonen
+            $('#myDiv').append('Het is in Amsterdam nu :   ' + data.main.temp + ' graden <br />');
+        }
+
+        // error callbackfunctie
+        function handleError(xhr) {
+            console.log('er is een fout opgetreden: ' + xhr.responseText);
+        }
+
+    </script>
+</head>
+
+<body>
+<button id="btnRequest">Ajax Request via jsonp</button>
+<div id="myDiv"></div>
+</body>
+</html>
+

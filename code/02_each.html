@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery basic template</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+	<style>
+		.error {
+			color: red;
+		}
+
+		.ok {
+			color: green;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Elk veld is verplicht. Check dit met jQuery</h1>
+		<input type="text" id="txtName" placeholder="Uw naam" class="input-lg" /><br />
+		<input type="text" id="txtEmail" placeholder="E-mailadres" class="input-lg" /><br />
+		<input type="text" id="txtWoonplaats" placeholder="Woonplaats" class="input-lg" /><br />
+		<button class="btn btn-primary" id="btnSubmit">Verzenden</button>
+		<div id="divResult"></div>
+	</div>
+	<!-- vendor scripts -->
+	<script src="scripts/jquery/jquery.min.js"></script>
+	<script src="scripts/bootstrap/bootstrap.min.js"></script>
+
+	<!-- custom scripts -->
+	<script>
+		$(document).ready(function () {
+			// schrijf hier code om te valideren of elk veld in het formulier is ingevuld
+			$('#btnSubmit').on('click', function (e) {
+				e.preventDefault();
+				var errors = [], // array met mogelijke errors
+					msg = 'De volgende velden moeten worden ingevuld: ';
+
+				// Loop over alle velden.
+				$('input[type=text]').each(function (i) {
+					if ($(this).val() === '') {
+						errors.push($(this).attr('id')); // voeg toe aan de error-array
+					}
+				})
+
+				// verwerk resultaat
+				$('#divResult').removeClass();
+				if (errors.length > 0) {
+					// er zijn errors gevonden
+					$('#divResult')
+						.addClass('error')
+						.html(msg + errors.join(', '));
+				} else {
+					// formulier OK, verzenden maar
+					$('#divResult')
+						.addClass('ok')
+						.html('Alles OK! ');
+				}
+			});
+		});
+	</script>
+</body>
+</html>

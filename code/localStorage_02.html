@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script src="scripts/modernizr-latest.js"></script>
+    <title>test local storage</title>
+</head>
+<body>
+    <script>
+        // 1. Testen of localStorage beschikbaar is.
+        if (Modernizr.localstorage) {
+            // 2. Gegevens opslaan in localStorage
+            var woonplaats = 'Dieren';
+            var db = window.localStorage;
+            //var db = window.sessionStorage;
+            db.setItem('naam', 'Peter');
+            db.setItem('leeftijd', '45');
+            db.setItem('woonplaats', woonplaats);
+
+
+            // 3. gegevens ophalen uit localStorage
+            var message = '';
+            message += 'Naam: ' + db.getItem('naam') + '\n';
+            message += 'Leeftijd: ' + db.getItem('leeftijd') + '\n';
+            message += 'Plaats: ' + db.getItem('woonplaats') + '\n';
+
+            // 4. tonen in venstertje
+            console.log(message);
+            alert(message);
+
+            // 5. hoeveel items in localStorage?
+            console.log(db.length);
+
+            // 6. wat staat er op positie 2?
+            console.log(db.getItem(db.key(2)));
+
+            // 7. andere notatie
+            //window.localStorage['Lengte'] = '1.90'
+          ;
+            console.log(' Lengte: ' + db.getItem('Lengte'));
+
+        } else {
+            // Nee.
+            alert('Helaas, localStorage is niet beschikbaar');
+        }
+    </script>
+</body>
+</html>

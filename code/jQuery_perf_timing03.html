@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery basic template</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+	<div class="container">
+		<h1>Vermijd DOM-manipulatie: kijk in de broncode.</h1>
+		<div>Even geduld...</div>
+		<div id="divResult"></div>
+	</div>
+	<!-- vendor scripts -->
+	<script src="scripts/jquery/jquery.min.js"></script>
+	<script src="scripts/bootstrap/bootstrap.min.js"></script>
+
+	<!-- custom scripts -->
+	<script>
+		// 1. Vermijd DOM-manipulatie in lussen
+		console.time('DOM-manipulation inside loop');
+		for (var i = 0; i < 100000; i++) {
+			$('#divResult').append(' hello', i);
+		}
+		console.timeEnd('DOM-manipulation inside loop');
+
+		// 2. Een betere manier, in de lus een string samenstellen en deze buiten de lus toevoegen aan het DOM
+		console.time('DOM-manipulation outside loop');
+		var text = '';
+		for (var i = 0; i < 100000; i++) {
+			text += ' hello' + i;
+		}
+		$('#divResult').append(text);
+		console.timeEnd('DOM-manipulation outside loop');
+	</script>
+</body>
+</html>

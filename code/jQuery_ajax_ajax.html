@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cursus JavaScript - Basic Ajax </title>
+	<script src="scripts/jquery-1.7.1.min.js"></script>
+	<script>
+		$( document ).ajaxStart(function() {
+			$('#spinner').css('display', 'block');
+		});
+		$( document ).ajaxStop(function() {
+			$('#spinner').css('display', 'none');
+		});
+		$(document).ready(function (e) {
+			$('#btnRequest').on('click', handleClick);
+		});
+
+
+		// de klik op de knop omzetten in een Ajax-request
+		function handleClick(event) {
+			// 1. variabelen instellen
+			$.ajax({
+//				url: 'http://www.google.nl',
+				url: 'books.json',
+				dataType: 'json', //of 'jsonp'
+				type: 'GET',
+				contentType: 'application/json',
+				success: handleData,	// success callbackfunctie
+				error: handleError	// error callbackfunctie
+				// headers: { 'X-my-session-token': 'xxxx-1234' }
+			});
+		}
+
+		// success callback-functie
+		function handleData(data) {
+			console.log(data);
+			for (var i in data) {
+				$('#myDiv').append('<p>' + i + ': <strong>' + data[i].title + '</strong></p>');
+			}
+		}
+
+		// error callbackfunctie
+		function handleError(jqXhr, textStatus, errorThrown) {
+			console.log('er is een fout opgetreden: ' + jqXhr.responseText);
+			$('#myDiv').append(jqXhr.responseText);
+			// schrijf bijvoorbeeld een switch-statement waarin je iets nuttigs doet met de jqXhr-responseText
+		}
+		/*
+		// Extra Ajax-helperfuncties
+		$.ajaxSetup( {
+			beforeSend: setHeader // zet header elke call
+			// overige standaardinstellingen
+		});
+
+		function setHeader(xhr) {
+			xhr.setRequestHeader('X-session-token', 'xxxx-12345');
+		}
+		$(document).ajaxStart(function () {
+			$(".log").append("Aangeroepen: Triggered ajaxStart handler. <br />");
+		});
+
+		$(document).ajaxStop(function () {
+			$(".log").append("Triggered ajaxStop handler. <br />");
+		});
+		*/
+		
+
+	</script>
+</head>
+<body>
+	<button id="btnRequest">Ajax Request via jQuery</button>
+	<div id="myDiv"></div>
+	<div class="log"></div>
+	<img id="spinner" src="spinner.gif" style="display: none;" />
+</body>
+</html>

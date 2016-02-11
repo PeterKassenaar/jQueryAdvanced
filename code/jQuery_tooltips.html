@@ -1,0 +1,75 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cursus JavaScript - jQuery template </title>
+<style>
+.tooltip {
+	display: none;
+	position: absolute;
+	border: 1px solid #333;
+	background-color: #006666;
+	color: #fff;
+	padding: 2px 6px;
+}
+</style>
+<!-- 
+Invoegen via CDN
+<script src="http://code.jquery.com/jquery.min.js"></script>
+-->
+<script src="scripts/jquery-1.7.1.min.js"></script>
+<script>
+$(document).ready(function(e) {
+	// stap 1: structuur instellen
+	$('.info').hover(
+		function(){
+				
+		}, 
+		function(){
+			
+	}).mousemove(function(){
+		
+	});
+	/*
+	// stap 2: details invoegen
+	$('.info').hover(
+		function(evt){
+		// 2a. mouseover-functie	
+		var titleText = $(this).attr('title');
+		$(this)
+			.data('tipText', titleText)
+			.removeAttr('title');
+		// nieuwe alinea maken, toevoegen aan DOM en infaden
+		$('<p class="tooltip"></p>')
+			.text(titleText)
+			.appendTo('body')
+			.css('top', (evt.pageY - 10) + 'px')
+			.css('left', (evt.pageX + 20) + 'px')
+			.fadeIn('slow');
+		}, 
+		// 2b. mouseout-functie
+		function(){
+			// title-attribuut herstellen
+			$(this).attr('title', $(this).data('tipText'));
+			// tooltip uit het DOM verwijderen
+			$('.tooltip').remove();
+	}).mousemove(function(evt){
+		// 3. meeverplaatsen met de muis
+		$('.tooltip')
+		.css('top', (evt.pageY - 10) + 'px')
+		.css('left', (evt.pageX + 20) + 'px');
+	});
+	*/
+});
+
+</script>
+</head>
+
+<body>
+<div>Lorem ipsum 
+dolor sit <a href="http://www.kassenaar.com" title="Dit is een hyperlink naar kassenaar.com" class="info">Kassenaar.com</a> dolor amet quibus deser tokul.
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cursus JavaScript - jQuery template </title>
+    <!--
+    Eventueel: invoegen via CDN
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    -->
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+        	// verberg alle tabbladen, behalve de eerste
+
+            $('#content div:not(:first)').hide();
+
+
+
+            // Klikken op hyperlinks aanhaken
+            $('#menu li a').on('click', function (e) {
+                e.preventDefault();
+
+                //1. alle tabs verbergen
+                $('#content div').hide();
+
+                // 2. huidige class selected verwijderen
+                $('#menu li a.selected').removeClass('selected');
+
+                // 3. class selected toevoegen aan aangeklikte link
+                $(this).addClass('selected');
+
+                // 4. uitzoeken welke div zichtbaar moet worden
+                var clicked = $(this).attr('href');
+                $(clicked).fadeIn('fast');
+            });
+            /*
+            // Quick & dirty oplossing om hardcoded naar een volgende tab te springen.
+            $('#btnTab1').on('click', function(){
+                // Tabinhoud verbergen en tonen.
+                $('#eerste').hide();
+                $('#second').show();
+
+                // Juiste tab als geselecteerd aanmerken
+                $('#menu li a.selected').removeClass('selected');
+                $('#menu li a').eq(1).addClass('selected'); //.eq(1) selecteert de tweede tabheader in de lijst en maakt die 'selected'
+
+            });
+            */
+
+        });
+
+
+    </script>
+    <style>
+        #menu {
+            margin: 0;
+            padding: 0;
+        }
+
+            #menu li {
+                display: inline;
+            }
+
+                #menu li a {
+                    display: inline-block;
+                    min-width: 100px;
+                    border: 1px solid #309;
+                    padding: 10px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    margin: 0;
+                }
+        /* geselecteerde tab in het menu */
+        .selected {
+            background-color: #06F;
+            color: #fff;
+        }
+
+        /* inhoud van de tabbladen */
+        #content div {
+            width: 600px;
+            border: 1px solid #666;
+            background-color: #EEE;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <ul id="menu">
+        <li><a href="#eerste" class="selected">Eerste tab</a></li>
+        <li><a href="#second">Tweede tab</a></li>
+        <li><a href="#third">Derde tab</a></li>
+        <li><a href="#fourth">Vierde tab</a></li>
+    </ul>
+    <div id="content">
+        <div id="eerste">
+            <h1>First tab</h1>
+            <h2>Hello World, enzovoort...</h2>
+            Lorem ipsum dolor sit...
+            <button id="btnTab1">Naar tab 2</button>
+        </div>
+        <div id="second">
+            <h1>Second tab</h1>
+            Lorem ipsum dolor sit...
+        </div>
+
+        <div id="third">
+            <h1>Third tab</h1>
+            Lorem ipsum dolor sit...
+        </div>
+        <div id="fourth">
+            <h1>Fourth tab</h1>
+            Lorem ipsum dolor sit...
+        </div>
+    </div>
+    <!--<button id="nextTab">Naar volgende tab</button>-->
+</body>
+</html>

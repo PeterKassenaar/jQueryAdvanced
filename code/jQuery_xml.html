@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cursus jQuery - loading XML </title>
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script src="scripts/jquery.xml2json.js"></script>
+    <script>
+        // Quick & dirty twee globale variabelen
+        var myJson,
+            url = 'xml-voorbeeld.xml';
+
+        $(document).ready(function (e) {
+            $('#btnRequest').on('click', handleClick);
+        });
+
+        // de klik op de knop omzetten in een Ajax-request en XML ophalen
+        function handleClick(event) {
+            // 1. Voorbeeld: Zet de XML als plain text in het scherm
+            $('#myDiv').load(url);
+
+            // 2. Doe een ajax-call om de XML-data te transformeren naar JSON en in de console te tonen.
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'xml',
+                contentType: 'text/xml',
+                success: function (result, status, jqXhr) {
+                    // convert XML to Json
+                    myJson = $.xml2json(result);
+                    console.log(myJson);
+                },
+                error: function (error, status, jqXhr) {
+                    alert('Fout: ' + error.statusText);
+                }
+            });
+        } // end function
+
+    </script>
+</head>
+
+<body>
+    <h2>Haal voorbeeld XML-bestand op</h2>
+    <button id="btnRequest">Get XML</button>
+    (zie console)
+    <hr />
+    <div id="myDiv"></div>
+   
+</body>
+</html>

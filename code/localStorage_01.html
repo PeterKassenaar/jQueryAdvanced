@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="scripts/jquery-1.7.1.min.js"></script>
+<script src="scripts/modernizr-latest.js"></script>
+<title>test local storage</title>
+</head>
+<body>
+<script>
+// Testen of localStorage beschikbaar is.
+// 1. Plain JavaScript: zelf testen
+function getLocalStorage(){
+	try{
+		if(!!window.localStorage){
+			return window.localStorage;
+		}		
+	}catch (e){
+		return undefined;
+	}
+}
+// 2. Check, check
+var storage = getLocalStorage();
+
+// 3. Beschikbaar? Bericht tonen
+if(storage){
+    alert('localStorage is beschikbaar ');
+}
+else{
+	alert ('deze browser kent geen localStorage');
+}
+
+// 4. Voer dezelfde test uit, nu via Modernizr.
+if(Modernizr.localstorage){
+	alert ('Ja hoor, ook via Modernizr is localStorage herkend en beschikbaar.'	);
+}else{
+	alert ('Helaas, ook Modernizr kan localStorage in deze browser niet tot leven wekken...');	
+}
+</script>
+</body>
+</html>

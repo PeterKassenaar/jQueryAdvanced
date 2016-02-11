@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+	<title>jQuery plugins maken</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+	<div class="container">
+		<div>
+			<p data-info="Morgen 35 graden">Tekst 1</p>
+			<p>Tekst 2</p>
+			<p data-info="Dit is extra info voor tekst 3">Tekst 3</p>
+			<p>Tekst 4</p>
+		</div>
+	</div>
+
+	<script src="scripts/jquery/jquery.js"></script>
+
+	<script>
+		// Een eigen plugin bouwen. Credits : http://learn.jquery.com/plugins/basic-plugin-creation/
+		//
+		// stap 0 - standaard, zonder plugin
+//		$('p').css('background-color', 'green');
+
+		// stap 1 - nieuwe functie, zonder parameters, zonder iffy
+		/*
+		jQuery.fn.colorize = function(){
+				this.css('background-color', 'red');
+				return this;
+		};
+		$('p').colorize();
+*/
+
+		// stap 2 - nieuwe functie, nu met iffy en doorgeven van jQuery-object
+		// IIFE : Immediately Invoked Function Expression
+		// "Self executing Anonymous Function "
+/*
+		(function ($) {
+			$.fn.colorize = function () {
+				this.css('background-color', 'limegreen');
+				return this;
+			};
+		})(jQuery);
+		$('p').colorize();
+*/
+
+		
+		// stap 3 - weer met iffy, nu met gebruik van .each, om nog bewerkingen uit te voeren op de collection.
+		//
+/*
+		(function ($) {
+			$.fn.colorize = function () {
+
+				// alleen de onderdelen van de collectie die zijn voorzien van een data-attribuut krijgen nu de gekleurde achtergrond.
+				return this.each(function (index, el) {
+					if ($(this).data('info')) {
+						$(this).append(' (index : ' + index + ' ' + $(this).data('info') + ')');
+					}
+					$(this).css('background-color', 'green');
+					$(this).css('font-size', '46px');
+					if ($(this).is(':even')) {
+						$(this).css('background-color', 'yellow');
+					}
+				});
+
+			};
+		})(jQuery);
+		$('p').colorize();
+*/
+
+
+		// stap 4 - nu met de optie om parameters door te geven aan de plugin.
+		//
+
+		(function($){
+			$.fn.colorize = function(options){
+				// alleen de onderdelen van de collectie die zijn voorzien van een data-attribuut krijgen nu de gekleurde achtergrond.
+				// De kleuren zijn instelbaar via een options-object.
+				var settings = $.extend({
+					// Standaardwaarden instellen, daarna overrulen/exenden via eventueel meegegeven options-object.
+					color: "white",
+					backgroundColor: "darkgreen",
+					fontSize: '16px'
+				}, options);
+
+				
+				// Default terugkeerwaarde: return this.each()
+				return this.each(function (index, el) {
+
+						$(this).append(' (index : ' + index + ' ' + $(this).data('info')+')');
+						var kleuren = {
+							'background-color' : settings.backgroundColor,
+							'color': settings.color,
+							'font-size': settings.fontSize
+						};
+						$(this).css(kleuren);
+
+
+				});
+			};
+		})(jQuery);
+
+		// De plugin aanroepen zonder  configuratie-object.
+//		$('p').colorize();
+		
+		//De plugin aanroepen met configuratie-object.
+		$('p:even').colorize({
+			color: 'darkbrown',
+			backgroundColor: 'lemonchiffon',
+			fontSize:'44px'
+		}).on('click', function(){ // +chaining
+			alert($(this).text());
+		});
+		
+		/*
+
+		$('.zoomin').zoomin('reset')
+
+		(function($){
+			$.fn.zoomin = function(options, object){
+				var defaults ={};
+				if(arguments.length === 1){
+					if(typeof options === 'object'){
+
+						// alleen de onderdelen van de collectie die zijn voorzien van een data-attribuut krijgen nu de gekleurde achtergrond.
+						// De kleuren zijn instelbaar via een options-object.
+						var settings = $.extend({
+							// Standaardwaarden instellen, daarna overrulen/exenden via eventueel meegegeven options-object.
+							color: "white",
+							backgroundColor: "darkgreen",
+							fontSize: '16px'
+						}, options);
+					}
+				}
+				else if(arguments.length ===2){
+					
+					if(typeof arguments[0] === 'string'){
+						if(arguments[0] = 'reset'  &&
+							( typeof arguments[1]==='object')){
+							return this.each(function (index, el) {
+								$(this).width(arguments[1].width);
+
+							});
+						}
+					}
+				}
+				return this.each(function (index, el) {
+					// opslaan van default waarden
+				})
+			};
+			*/
+	</script>
+
+</body>
+</html>

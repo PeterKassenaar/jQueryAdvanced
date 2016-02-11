@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery basic template</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+	<div class="container">
+		<h1>Performanceverschillen: kijk in de console.</h1>
+	</div>
+	<!-- vendor scripts -->
+	<script src="scripts/jquery/jquery.min.js"></script>
+	<script src="scripts/bootstrap/bootstrap.min.js"></script>
+
+	<!-- custom scripts -->
+	<script>
+		// Performance testing: vul een array met 1 miljoen items en loop over die array
+/*
+		// 1. Native
+		var array = new Array();
+		for (var i = 0; i < 10000000; i++) {
+			array[i] = 0;
+		}
+
+
+		// Eerst lus, native overheen loopen
+		console.time('native');
+		var l = array.length;
+		for (var i = 0; i < l; i++) {
+			array[i] = i;
+		}
+		console.timeEnd('native');
+
+		// 2. jQuery
+		console.time('jquery');
+		$.each(array, function (i) {
+			array[i] = i;
+		});
+		console.timeEnd('jquery');
+*/
+		// Of: voor meer complexe items en selecties: gebruik ID's in plaats van classes.
+		// Een lijst maken, deze vullen met items en daarna elk item selecteren:
+
+		// 3. Via classes.
+		console.time('class');
+		var list = $('#list');
+		var items = '<ul>';
+
+		for (i = 0; i < 10000; i++) {
+			items += '<li class="item' + i + '">item</li>';
+		}
+
+		items += '</ul>';
+		list.html(items);
+
+		for (i = 0; i < 10000; i++) {
+			var s = $('.item' + i);
+		}
+		console.timeEnd('class');
+
+
+		// 4. Via ID's
+		console.time('id');
+		var list = $('#list');
+		var items = '<ul>';
+
+		for (i = 0; i < 10000; i++) {
+			items += '<li id="item' + i + '">item</li>';
+		}
+
+		items += '</ul>';
+		list.html(items);
+
+		for (i = 0; i < 10000; i++) {
+			var s = $('#item' + i);
+		}
+		console.timeEnd('id');
+		
+
+
+	</script>
+</body>
+</html>
